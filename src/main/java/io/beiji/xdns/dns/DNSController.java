@@ -14,7 +14,8 @@ public class DNSController {
 
 
     @GetMapping("/listRecords")
-    public String ListExistDomainRecord() throws UnirestException {
+    public String listExistDomainRecord() throws UnirestException {
         return dnsService.ListExistDomainRecord();
     }
+
 }
