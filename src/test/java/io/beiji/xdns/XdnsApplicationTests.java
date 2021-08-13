@@ -17,7 +17,7 @@ class XdnsApplicationTests {
 
 	@Test
 	void GetDNSRecordList() throws UnirestException {
-		CloudflareResponse<List<DNSRecord>> response = dnsService.ListExistDomainRecord();
+		CloudflareResponse<List<DNSRecord>> response = dnsService.listExistDomainRecord();
 	}
 
 
