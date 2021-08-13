@@ -21,7 +21,7 @@ public class DNSService {
     public String CF_API_TOKEN;
     private Gson gson = new Gson();
 
-    public CloudflareResponse<List<DNSRecord>> ListExistDomainRecord() {
+    public CloudflareResponse<List<DNSRecord>> listExistDomainRecord() {
         log.info(ZoneId);
         CloudflareAccess cfAccess = new CloudflareAccess(CF_API_TOKEN);
         CloudflareResponse<List<DNSRecord>> response =
@@ -29,6 +29,9 @@ public class DNSService {
                         .identifiers(ZoneId)
                         .asObjectList(DNSRecord.class);
         log.info("response = {}", gson.toJson(response));
+
+        List<DNSRecord> dnsRecords = response.getObject();
+        log.info(gson.toJson(dnsRecords));
         return response;
     }
 
