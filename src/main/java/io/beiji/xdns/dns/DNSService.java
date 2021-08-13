@@ -21,9 +21,10 @@ public class DNSService {
     public String CF_API_TOKEN;
     private Gson gson = new Gson();
 
-    public CloudflareResponse<List<DNSRecord>> listExistDomainRecord() {
-        log.info(ZoneId);
+    public List<DNSRecord> listExistDomainRecord() {
         CloudflareAccess cfAccess = new CloudflareAccess(CF_API_TOKEN);
+
+        log.info(ZoneId);
         CloudflareResponse<List<DNSRecord>> response =
                 new CloudflareRequest(Category.LIST_DNS_RECORDS, cfAccess)
                         .identifiers(ZoneId)
@@ -32,7 +33,21 @@ public class DNSService {
 
         List<DNSRecord> dnsRecords = response.getObject();
         log.info(gson.toJson(dnsRecords));
-        return response;
+        return dnsRecords;
     }
 
+    public List<DNSRecord> addNewDomainRecord(DNSRecord dnsRecord) {
+        CloudflareAccess cfAccess = new CloudflareAccess(CF_API_TOKEN);
+
+        log.info("create new dnsRecord: {} ", dnsRecord);
+        CloudflareResponse<DNSRecord> response = new CloudflareRequest(Category.CREATE_DNS_RECORD, cfAccess)
+                .identifiers(ZoneId)
+                .body(gson.toJson(dnsRecord))
+                .asObject(DNSRecord.class);
+        log.info("add new dnsRecord info is {}", response);
+
+        DNSRecord dnsRecords = response.getObject();
+        return (List<DNSRecord>) dnsRecords;
+
+    }
 }

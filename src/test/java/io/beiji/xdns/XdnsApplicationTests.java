@@ -1,7 +1,6 @@
 package io.beiji.xdns;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import eu.roboflax.cloudflare.CloudflareResponse;
 import eu.roboflax.cloudflare.objects.dns.DNSRecord;
 import io.beiji.xdns.dns.DNSService;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,7 @@ class XdnsApplicationTests {
 
 	@Test
 	void GetDNSRecordList() throws UnirestException {
-		CloudflareResponse<List<DNSRecord>> response = dnsService.listExistDomainRecord();
+		List<DNSRecord> response = dnsService.listExistDomainRecord();
 	}
 
 
