@@ -10,13 +10,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
 @Service
 public class DNSService {
     @Value("${cloudflare.zone-id}")
-    public String ZoneId;
+    public String zoneId;
     @Value("${cloudflare.x-auth-key}")
     public String CF_API_TOKEN;
     private Gson gson = new Gson();
@@ -24,10 +26,10 @@ public class DNSService {
     public List<DNSRecord> listExistDomainRecord() {
         CloudflareAccess cfAccess = new CloudflareAccess(CF_API_TOKEN);
 
-        log.info(ZoneId);
+        log.info(zoneId);
         CloudflareResponse<List<DNSRecord>> response =
                 new CloudflareRequest(Category.LIST_DNS_RECORDS, cfAccess)
-                        .identifiers(ZoneId)
+                        .identifiers(zoneId)
                         .asObjectList(DNSRecord.class);
         log.info("response = {}", gson.toJson(response));
 
@@ -39,15 +41,25 @@ public class DNSService {
     public List<DNSRecord> addNewDomainRecord(DNSRecord dnsRecord) {
         CloudflareAccess cfAccess = new CloudflareAccess(CF_API_TOKEN);
 
+        CloudflareResponse<List<DNSRecord>> dnsRecordList =
+                new CloudflareRequest(Category.LIST_DNS_RECORDS, cfAccess)
+                        .identifiers(zoneId)
+                        .queryString("name", dnsRecord.getName())
+                        .asObjectList(DNSRecord.class);
+        log.info("if the old exist: {}", dnsRecordList.getObject().size());
+
+        if (!dnsRecordList.getObject().isEmpty()) {
+            return new ArrayList<>();
+        }
         log.info("create new dnsRecord: {} ", dnsRecord);
         CloudflareResponse<DNSRecord> response = new CloudflareRequest(Category.CREATE_DNS_RECORD, cfAccess)
-                .identifiers(ZoneId)
+                .identifiers(zoneId)
                 .body(gson.toJson(dnsRecord))
                 .asObject(DNSRecord.class);
         log.info("add new dnsRecord info is {}", response);
 
         DNSRecord dnsRecords = response.getObject();
-        return (List<DNSRecord>) dnsRecords;
+        return new ArrayList<>(Collections.singletonList(dnsRecords));
 
     }
 }
