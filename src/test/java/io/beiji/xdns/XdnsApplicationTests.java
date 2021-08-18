@@ -1,6 +1,5 @@
 package io.beiji.xdns;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.roboflax.cloudflare.objects.dns.DNSRecord;
 import io.beiji.xdns.dns.DNSService;
 import org.junit.jupiter.api.Test;
@@ -11,13 +10,13 @@ import java.util.List;
 
 @SpringBootTest
 class XdnsApplicationTests {
-	@Autowired
-	public DNSService dnsService;
+    @Autowired
+    public DNSService dnsService;
 
-	@Test
-	void GetDNSRecordList() throws UnirestException {
-		List<DNSRecord> response = dnsService.listExistDomainRecord();
-	}
+    @Test
+    void GetDNSRecordList() {
+        List<DNSRecord> response = dnsService.listExistDomainRecord();
+    }
 
 
 }
