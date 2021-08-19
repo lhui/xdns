@@ -5,7 +5,7 @@ A fully self-service domain name resolution system.
 # 功能实现
 
 - [x] 实现已经插入的 DNS 记录不可以再次插入
-- [ ] 加入 redis 增加数据读取的速度 注意 redis 数据更新时间
+- [x] 加入 redis 增加数据读取的速度 注意 redis 数据更新时间
 - [ ] 前端页面实现
 - [ ] 加入 docker 功能( docker 库+ docker compose)
 - [ ] 实现多域名解析(开放)

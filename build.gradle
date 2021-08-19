@@ -25,6 +25,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.4'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.12.4'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.4'
+    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.75'
     implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.3.4.RELEASE'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.3.5.RELEASE'
     implementation 'com.github.robinbraemer:cloudflareapi:1.4.0'
