@@ -1,4 +1,5 @@
 # xdns
+[![Java CI](https://github.com/tcpgnl/xdns/actions/workflows/main.yml/badge.svg)](https://github.com/tcpgnl/xdns/actions/workflows/main.yml)
 
 A fully self-service domain name resolution system.
 
