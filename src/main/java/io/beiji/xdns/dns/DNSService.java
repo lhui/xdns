@@ -38,7 +38,6 @@ public class DNSService {
             List<DNSRecord> dnsRecords = (List<DNSRecord>) (Object) redisUtil.lGet(redisKeyListExistDomain, 0, -1);
             log.info("get the DNSRecord List from redis = {}", dnsRecords);
             return dnsRecords;
-
         }
         log.info(zoneId);
         CloudflareResponse<List<DNSRecord>> response =
