@@ -1,3 +1,3 @@
-spring:
-  profiles:
-    active: dev
+cloudflare:
+  x-auth-key: ${X_AUTH_KEY}
+  zone-id: ${ZONE_ID}
