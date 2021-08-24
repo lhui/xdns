@@ -1,3 +1,7 @@
 cloudflare:
   x-auth-key: ${X_AUTH_KEY}
   zone-id: ${ZONE_ID}
+spring:
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
