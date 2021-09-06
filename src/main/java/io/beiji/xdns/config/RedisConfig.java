@@ -14,7 +14,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @ConditionalOnClass(RedisOperations.class)
-//@EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfig {
 
     @Bean
