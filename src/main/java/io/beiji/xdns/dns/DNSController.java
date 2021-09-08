@@ -3,6 +3,7 @@ package io.beiji.xdns.dns;
 import eu.roboflax.cloudflare.objects.dns.DNSRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import java.util.List;
 @Api(tags = "DNS接口")
 @RestController
 @RequestMapping("/dns")
+@CrossOrigin
 public class DNSController {
 
     private final DNSService dnsService;
