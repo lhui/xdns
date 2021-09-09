@@ -11,5 +11,6 @@ A fully self-service domain name resolution system.
 - [ ] 加入 docker 功能( docker 库+ docker compose)
 - [ ] 实现多域名解析(开放)
 - [ ] 加入数据库，保存数据，保证多数据的安全性
+- [ ] 加入flyway
 - [ ] 加入用户系统，可以确定域名归属
 - [ ] 加入用户信息展示页面

@@ -1,0 +1,18 @@
+version: '3'
+services:
+  web:
+    build: .
+    environment:
+      X_AUTH_KEY: $X_AUTH_KEY
+      ZONE_ID: $ZONE_ID
+      REDIS_HOST: $REDIS_HOST
+      REDIS_PORT: $REDIS_PORT
+    links:
+      - redis-server
+    ports:
+      - "8080:8080"
+  redis-server:
+    hostname: 'redis'
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
