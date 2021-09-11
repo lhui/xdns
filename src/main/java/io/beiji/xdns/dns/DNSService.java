@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -30,12 +31,12 @@ public class DNSService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    public List<DNSRecord> listExistDomainRecord() {
+    public DNSResponse listExistDomainRecord() {
         CloudflareAccess cfAccess = new CloudflareAccess(CF_API_TOKEN);
         var redisKeyListExistDomain = "listExistDomain";
         if (redisUtil.hasKey(redisKeyListExistDomain)) {
             log.info("redisUtil set");
-            List<DNSRecord> dnsRecords = (List<DNSRecord>) (Object) redisUtil.lGet(redisKeyListExistDomain, 0, -1);
+            DNSResponse dnsRecords = (DNSResponse) redisUtil.lGet(redisKeyListExistDomain, 0, -1);
             log.info("get the DNSRecord List from redis = {}", dnsRecords);
             return dnsRecords;
         }
@@ -50,7 +51,11 @@ public class DNSService {
         log.info(gson.toJson(dnsRecords));
         redisUtil.lSet(redisKeyListExistDomain, dnsRecords);
         log.info("get the DNSRecord from cloudflare api = {}", dnsRecords);
-        return dnsRecords;
+
+        List<DNSModel> dnsModelList = dnsRecords.stream()
+                .map(dnsRecord -> new DNSModel(dnsRecord.getName(), dnsRecord.getType(), dnsRecord.getContent()))
+                .collect(Collectors.toList());
+        return new DNSResponse(dnsModelList);
     }
 
     public List<DNSRecord> addNewDomainRecord(DNSRecord dnsRecord) {
