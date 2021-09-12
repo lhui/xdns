@@ -6,9 +6,9 @@ import java.util.List;
 
 @Data
 public class DNSResponse {
- private List<DNSModel> dnsModelList;
+    private List<DNSModel> dnsModelList;
 
- public DNSResponse(List<DNSModel> dnsModelList) {
-  this.dnsModelList = dnsModelList;
- }
+    public DNSResponse(List<DNSModel> dnsModelList) {
+        this.dnsModelList = dnsModelList;
+    }
 }

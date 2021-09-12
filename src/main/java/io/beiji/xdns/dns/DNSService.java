@@ -36,9 +36,9 @@ public class DNSService {
         var redisKeyListExistDomain = "listExistDomain";
         if (redisUtil.hasKey(redisKeyListExistDomain)) {
             log.info("redisUtil set");
-            DNSResponse dnsRecords = (DNSResponse) redisUtil.lGet(redisKeyListExistDomain, 0, -1);
+            List<DNSModel> dnsRecords = (List<DNSModel>) (Object) redisUtil.lGet(redisKeyListExistDomain, 0, -1);
             log.info("get the DNSRecord List from redis = {}", dnsRecords);
-            return dnsRecords;
+            return new DNSResponse(dnsRecords);
         }
         log.info(zoneId);
         CloudflareResponse<List<DNSRecord>> response =
@@ -49,12 +49,13 @@ public class DNSService {
 
         List<DNSRecord> dnsRecords = response.getObject();
         log.info(gson.toJson(dnsRecords));
-        redisUtil.lSet(redisKeyListExistDomain, dnsRecords);
         log.info("get the DNSRecord from cloudflare api = {}", dnsRecords);
 
         List<DNSModel> dnsModelList = dnsRecords.stream()
                 .map(dnsRecord -> new DNSModel(dnsRecord.getName(), dnsRecord.getType(), dnsRecord.getContent()))
                 .collect(Collectors.toList());
+        DNSResponse dnsResponse = new DNSResponse(dnsModelList);
+        redisUtil.lSet(redisKeyListExistDomain, dnsModelList);
         return new DNSResponse(dnsModelList);
     }
 
