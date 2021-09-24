@@ -1,8 +1,8 @@
 # xdns
 [![Java CI](https://github.com/tcpgnl/xdns/actions/workflows/main.yml/badge.svg)](https://github.com/tcpgnl/xdns/actions/workflows/main.yml)
 
-A fully self-service domain name resolution system.
-
+A fully self-service domain name resolution system.  
+[web-repo](https://github.com/tcpgnl/xdns-web)
 # 功能实现
 
 - [x] 实现已经插入的 DNS 记录不可以再次插入
